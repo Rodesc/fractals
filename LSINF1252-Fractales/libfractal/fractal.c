@@ -4,7 +4,14 @@
 struct fractal *fractal_new(const char *name, int width, int height, double a, double b)
 {
     /* TODO */
-    return NULL;
+    struct fractal f;
+    f.name = name;
+    f.height = height;
+    f.width = width;
+    f.a = a;  
+    f.b = b;
+    struct fractal *ptr = f;
+    return ptr;
 }
 
 void fractal_free(struct fractal *f)
