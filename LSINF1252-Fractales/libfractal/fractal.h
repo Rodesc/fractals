@@ -1,7 +1,7 @@
 #ifndef _FRACTAL_H
 #define _FRACTAL_H
 
-struct fractal {
+struct fractal{
     /* TODO: à remplir */
     char name[64];
     int height;
@@ -9,7 +9,7 @@ struct fractal {
     double a;
     double b;
     double meanValue; 				/*valeur moyenne */
-    double values[width][height];
+    double values[];
  };
 
 /*

@@ -1,41 +1,46 @@
 #include <stdlib.h>
+#include <string.h>
 #include "fractal.h"
 
 struct fractal *fractal_new(const char *name, int width, int height, double a, double b)
 {
-    /* TODO */
-    struct fractal f;
-    f.name = name;
-    f.height = height;
-    f.width = width;
-    f.a = a;  
-    f.b = b;
-    struct fractal *ptr = f;
-    return ptr;
+	
+	struct fractal *f = calloc(1, sizeof *f + sizeof(double[height][width]) ); // using calloc since it conveniently fills everything with zeroes
+	/*f->name = name;
+	*/
+	strcpy(f->name, name );
+	f->height = height;
+	f->width = width;
+	f->a = a;
+	f->b = b;
+	return f;
 }
 
 void fractal_free(struct fractal *f)
 {
     /* TODO */
-    *f = NULL;
+    free(f);
 }
 
 const char *fractal_get_name(const struct fractal *f)
 {
-    /* TODO */
+	/* TODO */
+	if (f == NULL)
+		return NULL;
     return f->name;
 }
 
 int fractal_get_value(const struct fractal *f, int x, int y)
 {
     /* TODO */
-    return f->value[x][y];
+    return f->values[x][y];
 }
 
 void fractal_set_value(struct fractal *f, int x, int y, int val)
 {
     /* TODO */
-    f->values[x][y] = val;
+    double (*array_2D)[f->width] = (double(*)[f->width]) f->values;
+    array_2D[y][x] = val; 
 }
 
 int fractal_get_width(const struct fractal *f)
