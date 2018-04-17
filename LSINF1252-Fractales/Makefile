@@ -11,7 +11,7 @@
 #lib:
 #	@(cd libfractal && $(MAKE))
 #
-all: main.o 
+all: main.o fractal_test1
 
 fractal_test1: main.o lib
 	gcc -std=c99 -o fractal_test1 main.o -g -Wall -W

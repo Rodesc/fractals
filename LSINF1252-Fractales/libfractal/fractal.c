@@ -33,7 +33,8 @@ const char *fractal_get_name(const struct fractal *f)
 int fractal_get_value(const struct fractal *f, int x, int y)
 {
     /* TODO */
-    return f->values[x][y];
+    double (*array_2D)[f->width] = (double(*)[f->width]) f->values;
+    return array_2D[y][x];
 }
 
 void fractal_set_value(struct fractal *f, int x, int y, int val)
