@@ -4,12 +4,12 @@
 struct fractal {
     /* TODO: à remplir */
     char name[64];
-    unsigned int height;
-    unsigned int width;
+    int height;
+    int width;
     double a;
     double b;
-    double values[height][width]; 	//double values[height*width]; ??
-    double meanValue; 				//valeur moyenne
+    double meanValue; 				/*valeur moyenne */
+    double values[width][height];
  };
 
 /*
