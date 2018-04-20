@@ -6,13 +6,13 @@
 
 int main(){
 
-    /* TODO */
+	/*VERSION 1*/
+
 	printf("Creating fractal... \n");
 	struct fractal *f = fractal_new("Julia", 192, 108, 0.3, 0.5);
-	printf("Fractal \"Julia\" created... \n");
-	printf("Computing \"Julia\"... \n");
+	printf("Fractal \"Julia\" created... \nComputing \"Julia\"... \n");
 	compute_value(f);
-	printf("Computed \"Julia\"... \n Converting... \n");
+	printf("Computed \"Julia\"... \nConverting... \n");
 	int bmp = write_bitmap_sdl(f,"Julia1.bmp");
 	if(bmp == 0){
 		printf("\"Julia\" Converted to bmp file ! \n");
