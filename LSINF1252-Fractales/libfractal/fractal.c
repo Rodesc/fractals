@@ -5,7 +5,7 @@
 struct fractal *fractal_new(const char *name, int width, int height, double a, double b)
 {
 	
-	struct fractal *f = calloc(1, sizeof *f + sizeof(double[height][width]) ); // using calloc since it conveniently fills everything with zeroes
+	struct fractal *f = malloc(1, sizeof *f + sizeof(double[height][width]) ); // using calloc since it conveniently fills everything with zeroes
 	/*f->name = name;
 	*/
 	strcpy(f->name, name );

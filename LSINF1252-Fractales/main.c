@@ -4,22 +4,27 @@
 #include <pthread.h>
 #include "libfractal/fractal.h"
 
-int main(){
+int main(int argc, char *argv[]){
 
-	/*VERSION 1*/
+	/*VERSION 2*/
 
+
+
+
+	printf("%s\n", argv[0]);
 	printf("Creating fractal... \n");
-	struct fractal *f = fractal_new("Julia", 192, 108, 0.3, 0.5);
+	struct fractal *f = fractal_new("Julia", 413, 413, 0.3, 0.8);
 	printf("Fractal \"Julia\" created... \nComputing \"Julia\"... \n");
 	compute_value(f);
 	printf("Computed \"Julia\"... \nConverting... \n");
-	int bmp = write_bitmap_sdl(f,"Julia1.bmp");
+	int bmp = write_bitmap_sdl(f,"julia3.bmp");
 	if(bmp == 0){
 		printf("\"Julia\" Converted to bmp file ! \n");
-		system("ristretto Julia1.bmp");
+		system("ristretto julia3.bmp");
 	}
 	else
 		printf("Error while while creating bmp file format\n");
+	fractal_free(f);
     return 0;
 }
 
@@ -36,4 +41,12 @@ void compute_value(struct fractal *f){
 			fractal_set_value(f, f->width - i, f->height - j, val); 	/*par symétrie*/
 		}
 	}
+}
+struct fractal * decode_line_to_fractal(char * l){
+	char * name;
+	int height; int width;
+	int a; int b;
+	scanf("%s %d %d %d %d", &name, &height, &width, &a, &b);
+	struct fractal *f = fractal_new(name, height, width, a, b);
+	return f;
 }
