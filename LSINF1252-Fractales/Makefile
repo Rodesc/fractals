@@ -17,12 +17,12 @@ all: main.o fractal_test1 lib
 
 fractal_test1: main.o lib 
 	@(echo ''Compilation fractal_test1 ...'')
-	@(gcc -std=c99 -o fractal_test1 main.o libfractal/fractal.o libfractal/tools.o -g -Wall -W -lSDL)
+	@(gcc -g -Wall -o fractal_test1 main.o libfractal/fractal.o libfractal/tools.o -lSDL -lpthread)
 	@(echo ''OK'')
 
 main.o: main.c lib
 	@(echo ''Compilation main.o ...'')
-	@(gcc -std=c99 -c main.c -g -Wall -W)
+	gcc -Wall -g -c main.c -lpthread
 	@(echo ''OK'')
 
 lib:

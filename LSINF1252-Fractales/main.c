@@ -2,25 +2,46 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <string.h>
 #include "libfractal/fractal.h"
 
 int main(int argc, char *argv[]){
 
 	/*VERSION 2*/
+	int genBMP;
+	/*Décomposition des arguments*/
+	if(argc >= 2 && strcmp(argv[1], "-d") == 0){
+		genBMP = 1;
+		printf("*** Generate .bmp files \n");
+	}
 
-
-
-
-	printf("%s\n", argv[0]);
 	printf("Creating fractal... \n");
-	struct fractal *f = fractal_new("Julia", 413, 413, 0.3, 0.8);
-	printf("Fractal \"Julia\" created... \nComputing \"Julia\"... \n");
+	
+	struct fractal *f = fractal_new("Julia", 100, 250, 0.3, 0.8);
+	printf("OK \nCreating compute_thread ...\n");
+	
+	pthread_t compute_thread;
+	printf("OK \nComputing \"Julia\"... \n");
+	
+	/*if(pthread_create(&compute_thread, NULL, compute_value(), f)){
+		fprintf(stderr, "Error creating thread\n");
+		return 1;
+	}*/
+	
+	/*pthread_create(&compute_thread, NULL, compute_value(f), NULL);
+	
+	/*pthread_join(compute_thread, NULL);*/
+	/*if(pthread_join(compute_thread, NULL)) {
+		fprintf(stderr, "Error joining thread\n");
+		return 2;
+
+	}*/
 	compute_value(f);
-	printf("Computed \"Julia\"... \nConverting... \n");
-	int bmp = write_bitmap_sdl(f,"julia3.bmp");
+	printf("OK \nConverting... \n");
+	int bmp = write_bitmap_sdl(f,"julia4.bmp");
 	if(bmp == 0){
 		printf("\"Julia\" Converted to bmp file ! \n");
-		system("ristretto julia3.bmp");
+		system("ristretto julia4.bmp");
 	}
 	else
 		printf("Error while while creating bmp file format\n");
@@ -33,14 +54,16 @@ int main(int argc, char *argv[]){
 */
 
 void compute_value(struct fractal *f){
-
+	printf("compute_value() started\n");
 	for(int i = 0; i < f->width; i++ ){
-		for (int j = 0; j <= f->height/2; j++){
+		for (int j = 0; j < f->height; j++){
 			int val = fractal_compute_value(f, i, j);
 			fractal_set_value(f, i, j, val);
-			fractal_set_value(f, f->width - i, f->height - j, val); 	/*par symétrie*/
+			/*fractal_set_value(f, f->width - i, f->height - j, val); 	/*par symétrie*/
 		}
 	}
+	printf("compute_value() finished\n");
+	return NULL;
 }
 struct fractal * decode_line_to_fractal(char * l){
 	char * name;
