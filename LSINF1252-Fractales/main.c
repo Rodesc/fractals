@@ -8,20 +8,33 @@
 int main(int argc, char *argv[]){
 
 	/*VERSION 2*/
-	int genBMP;
-	/*Décomposition des arguments*/
-	if(argc >= 2 && strcmp(argv[1], "-d") == 0){
-		genBMP = 1;
-		printf("*** Generate .bmp files \n");
-	}
+	int genBMP = 0;
+	int nb_max_threads = 1;
 
+	char * fichier_out = argv[argc-1];
+	char * fichiers_in;
+	/*Décomposition des arguments*/
+	
+	int nbf = 0;
+	for (int i = 1; i < argc-1; i++){
+		if (strcmp(argv[i], "-d") == 0)
+			genBMP = 1;
+		else if (strcmp(argv[i], "--maxthread") == 0){
+			i++;
+			nb_max_threads = atoi(argv[i]);
+		}else{
+			fichiers_in[nbf];
+			nbf++;
+		}
+	}
+	printf("Décomposition des arguments effectuee:\n	genBMP: %d\n	nbf:%d\n	nb_max_threads:%d\n",genBMP, nbf, nb_max_threads);
 	printf("Creating fractal... \n");
 	
 	struct fractal *f = fractal_new("Julia", 100, 250, 0.3, 0.8);
-	printf("OK \nCreating compute_thread ...\n");
+	printf("	*** OK \nCreating compute_thread ...\n");
 	
 	pthread_t compute_thread;
-	printf("OK \nComputing \"Julia\"... \n");
+	printf("	*** OK \nComputing \"Julia\"... \n");
 	
 	/*if(pthread_create(&compute_thread, NULL, compute_value(), f)){
 		fprintf(stderr, "Error creating thread\n");
@@ -37,7 +50,7 @@ int main(int argc, char *argv[]){
 
 	}*/
 	compute_value(f);
-	printf("OK \nConverting... \n");
+	printf("	OK \nConverting... \n");
 	int bmp = write_bitmap_sdl(f,"julia4.bmp");
 	if(bmp == 0){
 		printf("\"Julia\" Converted to bmp file ! \n");
