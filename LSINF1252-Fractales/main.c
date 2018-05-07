@@ -14,7 +14,7 @@
 
 double compute_value(void *fr){
 	struct fractal *f = (struct fractal *) fr;
-	double moyenne = 0;
+	double somme = 0;
 	int width = fractal_get_width(f);
 	int height = fractal_get_height(f);
 	printf("compute_value() started\n");
@@ -23,10 +23,11 @@ double compute_value(void *fr){
 			int val = fractal_compute_value(f, x, y);
 			fractal_set_value(f, x, y, val);
 			fractal_set_value(f, width - x, height - y, val); 	/*par symétrie*/
-			moyenne += 2*val; // symétrie
+			somme += 2*val; // symétrie
 		}
 	}
-	return moyenne/(width*height);
+	printf("compute_value() successful\n");
+	return somme/(width*height);
 }
 int main(int argc, char *argv[]){
 
@@ -54,6 +55,7 @@ int main(int argc, char *argv[]){
 	for (int i = 0; i<nbf; i++){
 		if(strcmp(fichiers_in[i],"-") == 0){
 			printf("Entree standard\n"); //prendre en compte....
+			//peut-être a supprimer car on s'occupe de ca dans la fonction producteur
 		}
 	}
 	printf("Décomposition des arguments effectuee:\n	genBMP: %d\n	nbf:%d\n	nb_max_threads:%d\n 	fichier_out:%s\n",genBMP, nbf, nb_max_threads, fichier_out);
@@ -84,15 +86,16 @@ int main(int argc, char *argv[]){
 		return EXIT_FAILURE;
 
 	for (int i = 0; i<nbf; i++){
-		if ( pthread_create(&(readers[i]), NULL, &read_file, (void *) fichiers_in[i]) != 0 )
+		if ( pthread_create(&(readers[i]), NULL, &producteur, (void *) fichiers_in[i]) != 0 )
 			fprintf(stderr, "Error: pthread_create readers with fichiers_in[%i]",i);
-
+		printf("readers (threads) Created\n");
 	}
 
 	for (int i = 0; i<nb_max_threads; i++){
 		int x = i;
-		if ( pthread_create(&computers[i], NULL, &compute_value, (void *) x ) != 0 )
+		if ( pthread_create(&computers[i], NULL, &consommateur, (void *) x ) != 0 )
 			fprintf(stderr, "Error: pthread_create computers with %i",x);
+		printf("computers (threads) Created\n");
 	}
 	
 

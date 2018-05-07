@@ -7,7 +7,7 @@ fractal_test1: main.o additionals.o lib
 	@(gcc -g -Wall -o fractal_test1 main.o additionals.o libfractal/fractal.o libfractal/tools.o -lSDL -lpthread)
 	@(echo ''OK'')
 
-main.o: main.c lib
+main.o: main.c
 	@(echo ''Compilation main.o ...'')
 	gcc -Wall -g -c main.c -lpthread
 	@(echo ''OK'')
