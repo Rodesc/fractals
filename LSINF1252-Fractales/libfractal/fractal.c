@@ -6,10 +6,11 @@ struct fractal *fractal_new(const char *name, int width, int height, double a, d
 {
 	
 	struct fractal *f = malloc( sizeof *f + sizeof(double[height][width]) ); // using calloc since it conveniently fills everything with zeroes
-	if(f==NULL)
+	if(f==NULL){
         printf("malloc error");
         return NULL;
-	strcpy(f->name, name );
+    }
+	strcpy(f->name, name);
 	f->height = height;
 	f->width = width;
 	f->a = a;

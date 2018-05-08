@@ -7,28 +7,13 @@
 #include "libfractal/fractal.h"
 #include "additionals.h"
 
-/*
-*	Ebauche de fonction qui calcule la fractale en prenant en compte la propriété de symétrie des fractales de Julia. 
-*	Retourne la moyenne de la fractale
-*/
+struct fractal ** buffer;
 
-double compute_value(void *fr){
-	struct fractal *f = (struct fractal *) fr;
-	double somme = 0;
-	int width = fractal_get_width(f);
-	int height = fractal_get_height(f);
-	printf("compute_value() started\n");
-	for(int x = 0; x < width; x++ ){
-		for (int y = 0; y < height; y++){
-			int val = fractal_compute_value(f, x, y);
-			fractal_set_value(f, x, y, val);
-			fractal_set_value(f, width - x, height - y, val); 	/*par symétrie*/
-			somme += 2*val; // symétrie
-		}
-	}
-	printf("compute_value() successful\n");
-	return somme/(width*height);
-}
+//Déclarations des mutex et semaphores
+pthread_mutex_t mthread_buffer;
+pthread_mutex_t mthread_closing;
+sem_t empty;
+sem_t full;
 int main(int argc, char *argv[]){
 
 	int genBMP = 0;
@@ -63,18 +48,16 @@ int main(int argc, char *argv[]){
 	
 	struct fractal *f = fractal_new("Julia", 500, 250, -0.52, 0.0);
 
-	//Déclarations des mutex et semaphores
-	pthread_mutex_t mthread_buffer;
-	pthread_mutex_t mthread_closing;
-	sem_t empty;
-	sem_t full;
-
+	
+	buffer = (struct fractal **) malloc(nb_max_threads * sizeof(struct fractal *));
+	if (buffer == NULL)
+		fprintf(stderr, "malloc error: buffer\n");
 	pthread_t *readers = (pthread_t *) malloc(nbf * sizeof(pthread_t));
 	if(readers == NULL)
-		fprintf(stderr, "Error: assigning readers (threads) with malloc");
+		fprintf(stderr, "Error: assigning readers (threads) with malloc\n");
 	pthread_t *computers = (pthread_t *) malloc(nb_max_threads * sizeof(pthread_t));
 	if(computers == NULL)
-		fprintf(stderr, "Error: assigning computers (threads) with malloc");
+		fprintf(stderr, "Error: assigning computers (threads) with malloc\n");
 
 	pthread_mutex_init(&mthread_buffer, NULL);
 	pthread_mutex_init(&mthread_closing, NULL);
@@ -97,8 +80,8 @@ int main(int argc, char *argv[]){
 			fprintf(stderr, "Error: pthread_create computers with %i",x);
 		printf("computers (threads) Created\n");
 	}
-	
-
+	for (int i = 0; i<nbf; i++)
+		printf("%s\n", buffer[i].fractal_get );
 	compute_value(f);
 	printf("\nConverting... \n");
 	int bmp = write_bitmap_sdl(f,"julia4.bmp");
@@ -109,17 +92,4 @@ int main(int argc, char *argv[]){
 		printf("Error while while creating bmp file format\n");
 	fractal_free(f);
     return 0;
-}
-
-
-struct fractal * decode_line_to_fractal(char * l){
-	char * name = (char*) malloc(sizeof(char)*64);
-	if(name == NULL)
-		fprintf(stderr, "Error: assigning name of fractal with malloc");
-	int height; int width;
-	int a; int b;
-	scanf("%s %d %d %d %d", &name, &height, &width, &a, &b);
-	struct fractal *f = fractal_new(name, height, width, a, b);
-	free(name);
-	return f;
 }

@@ -17,4 +17,12 @@ extern void *producteur(void *fn);
  */
 extern void *consommateur(void * bfi);
 
+
+/*
+*	Ebauche de fonction qui calcule la fractale en prenant en compte la propriété de symétrie des fractales de Julia. 
+*	Retourne la moyenne de la fractale
+*/
+extern double compute_value(struct fractal *f);
+
+struct fractal * decode_line_to_fractal(char * l);
 #endif
