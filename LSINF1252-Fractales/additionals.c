@@ -21,34 +21,41 @@ void *producteur(void *fn){
 	printf("producteur()\n");
 	char * file_name = (char *) fn;
 	FILE * file = NULL;
-	char * line = NULL;
-	size_t len = 0;
+	char line[LINE_LEN] = "";
 	ssize_t read;
 	struct fractal * fr;
 
 	if (strcmp(file_name, "-") == 0) {
 		if(std == 1){
 			fprintf(stderr, "Error: invalid arguments (stdin '-' used multiple times)\n");
+			return;
 		}
+		printf("Waiting for stdin\n");
     	file = stdin;
 		std = 1;
 	}
 	else{
 		file = fopen(file_name, "r");
 	}
-
-
+	printf("Opening file: %s\n", file_name);
 	if (file == NULL){
 		printf("Warning: File %s doesn't exist or couldn't open. Moving on to the next file\n", file_name);
 		return;	
 	}
 
-	while ((read = getline(&line, &len, file)) != -1) {
+	while (1) {
+		if(fgets(line, LINE_LEN, file) == NULL) break;
         //creer fractales a partir de line avec decodeLineToFractal()
+        printf("decode_line_to_fractal( %s )\n", file_name);
+        if( line[0] == '#'){
+        	printf("Line is comment: \"%s\"\n", line);
+        	continue;
+        }
         fr = decode_line_to_fractal(line); 
+        printf("Line decoded to fractal: %s\n", fractal_get_name(fr));
         sem_wait(&empty);
         pthread_mutex_lock(&mthread_buffer);
-
+		
         //section critique
         int is_placed = 0;
         for(int i = 0; is_placed == 0; i += 1){
@@ -56,12 +63,17 @@ void *producteur(void *fn){
         	is_placed = 1;
 
         }
+        sem_post(&full);
+	    pthread_mutex_unlock(&mthread_buffer);
     }
-    sem_post(&full);
-    pthread_mutex_unlock(&mthread_buffer);
+    
     if(std == 0 && fclose(file) != 0){
     	fprintf(stderr, "Error: closing %s \n", file_name);
     }
+
+    pthread_mutex_lock(&mthread_closing);
+    pthread_mutex_unlock(&mthread_closing);
+    return NULL;
 }
 
 void *consommateur(void *param){
@@ -91,15 +103,19 @@ double compute_value(struct fractal *f){
 	return somme/(width*height);
 }
 
-
+/* 
+	Converti un ligne l en fractale
+ */
 struct fractal * decode_line_to_fractal(char * l){
-	char * name = (char*) malloc(sizeof(char)*64);
 	printf("decode_line_to_fractal(%s)\n", l);
+
+	char * name = (char*) malloc(sizeof(char)*64);
 	if(name == NULL)
 		fprintf(stderr, "Error: assigning name of fractal with malloc");
+
 	int height; int width;
-	int a; int b;
-	scanf("%s %d %d %d %d", &name, &height, &width, &a, &b);
+	double a; double b;
+	sscanf(l, "%s %d %d %lf %lf", name, &height, &width, &a, &b);
 	struct fractal *f = fractal_new(name, height, width, a, b);
 	free(name);
 	return f;

@@ -80,15 +80,17 @@ int main(int argc, char *argv[]){
 			fprintf(stderr, "Error: pthread_create computers with %i",x);
 		printf("computers (threads) Created\n");
 	}
+/*
 	for (int i = 0; i<nbf; i++)
-		printf("%s\n", buffer[i].fractal_get );
-	compute_value(f);
+		printf("%s\n",fractal_get_name( buffer[i]) );
+*/
+	/*compute_value(f);
 	printf("\nConverting... \n");
 	int bmp = write_bitmap_sdl(f,"julia4.bmp");
 	if(bmp == 0){
 		printf("\"Julia\" Converted to bmp file ! \n");
 	}
-	else
+	else*/
 		printf("Error while while creating bmp file format\n");
 	fractal_free(f);
     return 0;

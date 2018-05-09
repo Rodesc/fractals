@@ -1,6 +1,7 @@
 #ifndef _ADDITIONALS_H
 #define _ADDITIONALS_H
 
+#define LINE_LEN 500
 /*
  * read_file lit un fichier et cree des fractales.
  * @return: 0 si on a atteint la fin du fichier sans erreur
