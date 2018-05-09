@@ -14,9 +14,15 @@ pthread_mutex_t mthread_buffer;
 pthread_mutex_t mthread_closing;
 sem_t empty;
 sem_t full;
+int genBMP = 0;
+
+double best_average;
+struct fractal * best_fractal;
+
+int nb_files_reading = 0;
+
 int main(int argc, char *argv[]){
 
-	int genBMP = 0;
 	int nb_max_threads = 1;
 
 	char * fichier_out = argv[argc-1];
@@ -37,12 +43,14 @@ int main(int argc, char *argv[]){
 			nbf++;
 		}
 	}
+	nb_files_reading = nbf;
 	for (int i = 0; i<nbf; i++){
 		if(strcmp(fichiers_in[i],"-") == 0){
 			printf("Entree standard\n"); //prendre en compte....
 			//peut-être a supprimer car on s'occupe de ca dans la fonction producteur
 		}
 	}
+
 	printf("Décomposition des arguments effectuee:\n	genBMP: %d\n	nbf:%d\n	nb_max_threads:%d\n 	fichier_out:%s\n",genBMP, nbf, nb_max_threads, fichier_out);
 	printf("Creating fractal... \n");
 	
@@ -71,15 +79,30 @@ int main(int argc, char *argv[]){
 	for (int i = 0; i<nbf; i++){
 		if ( pthread_create(&(readers[i]), NULL, &producteur, (void *) fichiers_in[i]) != 0 )
 			fprintf(stderr, "Error: pthread_create readers with fichiers_in[%i]",i);
-		printf("readers (threads) Created\n");
+		//printf("readers (threads) Created\n");
 	}
 
 	for (int i = 0; i<nb_max_threads; i++){
 		int x = i;
 		if ( pthread_create(&computers[i], NULL, &consommateur, (void *) x ) != 0 )
 			fprintf(stderr, "Error: pthread_create computers with %i",x);
-		printf("computers (threads) Created\n");
+		//printf("computers (threads) Created\n");
 	}
+/*
+	for(int i = 0; i < nb_max_threads; i++){
+		struct fractal * fr;
+
+		if(pthread_join(computers[i], (void ** ) fr) != 0)
+			fprintf(stderr, "pthread_join error: computers[%d]\n", i );
+		if(best_fractal == NULL){
+			best_fractal = fr;
+			//best_average = computers[i];
+		}
+		//else if (best_average < computers[i]){
+		//	best_fractal = fr;
+		//}
+	}
+*/
 /*
 	for (int i = 0; i<nbf; i++)
 		printf("%s\n",fractal_get_name( buffer[i]) );
@@ -91,7 +114,7 @@ int main(int argc, char *argv[]){
 		printf("\"Julia\" Converted to bmp file ! \n");
 	}
 	else*/
-		printf("Error while while creating bmp file format\n");
-	fractal_free(f);
+		printf("Error while creating bmp file format\n");
+	//fractal_free(f);
     return 0;
 }

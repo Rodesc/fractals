@@ -2,6 +2,11 @@
 #define _ADDITIONALS_H
 
 #define LINE_LEN 500
+
+
+extern double best_average;
+extern struct fractal * best_fractal;
+
 /*
  * read_file lit un fichier et cree des fractales.
  * @return: 0 si on a atteint la fin du fichier sans erreur

@@ -8,5 +8,7 @@ extern pthread_mutex_t mthread_buffer;
 extern pthread_mutex_t mthread_closing;
 extern sem_t empty;
 extern sem_t full;
+extern int nb_files_reading;
+extern	int genBMP;
 
 #endif
