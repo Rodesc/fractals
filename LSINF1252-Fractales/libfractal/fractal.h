@@ -8,8 +8,9 @@ struct fractal{
     int width;
     double a;
     double b;
-    double meanValue; 				/*valeur moyenne */
+    double mean_value; 				/*valeur moyenne */
     double values[];
+
  };
 
 /*

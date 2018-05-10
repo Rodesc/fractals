@@ -11,4 +11,5 @@ extern sem_t full;
 extern int nb_files_reading;
 extern	int genBMP;
 
+
 #endif

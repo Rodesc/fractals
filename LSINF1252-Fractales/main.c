@@ -70,11 +70,12 @@ int main(int argc, char *argv[]){
 	pthread_mutex_init(&mthread_buffer, NULL);
 	pthread_mutex_init(&mthread_closing, NULL);
 	sem_init(&empty,0,nb_max_threads); 	//buffer vide
-	sem_init(&full,0,0);				//buffer vide
+	sem_init(&full,0,0);				
 
 	struct fractal ** buffer = (struct fractal **) malloc(nb_max_threads*sizeof(struct fractal *));
 	if (buffer == NULL)
 		return EXIT_FAILURE;
+
 
 	for (int i = 0; i<nbf; i++){
 		if ( pthread_create(&(readers[i]), NULL, &producteur, (void *) fichiers_in[i]) != 0 )
@@ -88,21 +89,29 @@ int main(int argc, char *argv[]){
 			fprintf(stderr, "Error: pthread_create computers with %i",x);
 		//printf("computers (threads) Created\n");
 	}
-/*
+
 	for(int i = 0; i < nb_max_threads; i++){
 		struct fractal * fr;
 
-		if(pthread_join(computers[i], (void ** ) fr) != 0)
+		if(pthread_join(computers[i], (void ** ) &fr) != 0)
 			fprintf(stderr, "pthread_join error: computers[%d]\n", i );
+		
 		if(best_fractal == NULL){
 			best_fractal = fr;
 			//best_average = computers[i];
 		}
+		//else if( best_fractal->mean_value < fr->mean_value){
+			//fractal_free(best_fractal);
+			best_fractal = fr;
+		//}
+		//else
+			//fractal_free(fr);
+		printf("Joining computers[%d]\n", i );
 		//else if (best_average < computers[i]){
 		//	best_fractal = fr;
 		//}
 	}
-*/
+	write_bitmap_sdl(best_fractal,fichier_out);
 /*
 	for (int i = 0; i<nbf; i++)
 		printf("%s\n",fractal_get_name( buffer[i]) );
@@ -114,7 +123,9 @@ int main(int argc, char *argv[]){
 		printf("\"Julia\" Converted to bmp file ! \n");
 	}
 	else*/
-		printf("Error while creating bmp file format\n");
+	//compute_value(f);
+	
+		printf("END OF MAIN\n");
 	//fractal_free(f);
     return 0;
 }
