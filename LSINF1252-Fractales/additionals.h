@@ -21,7 +21,7 @@ extern void *producteur(void *fn);
  * @fract:
  * @return:
  */
-extern void *consommateur(void * bfi);
+extern void *consommateur();
 
 
 /*

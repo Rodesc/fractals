@@ -22,7 +22,7 @@ double best_average = 0;
 struct fractal * best_fractal = NULL;
 
 void *producteur(void *fn){
-
+	printf("producteur() \t nb_fractals: %d\n", nb_fractals );
 	char * file_name = (char *) fn;
 	FILE * file = NULL;
 	
@@ -40,16 +40,18 @@ void *producteur(void *fn){
 		}
 	}
 	else{
+		printf("Opening file: %s\n", file_name);
 		file = fopen(file_name, "r");
+		if (file == NULL){
+			printf("Warning: %s doesn't exist or couldn't open. Moving on to the next file\n", file_name);
+			return NULL;	
+		}
 	}
-	printf("Opening file: %s\n", file_name);
-	if (file == NULL){
-		printf("Warning: %s doesn't exist or couldn't open. Moving on to the next file\n", file_name);
-		return NULL;	
-	}
+	
 
 	char line[LINE_LEN] = "";
 	while (fgets(line, LINE_LEN, file) != NULL) {
+		printf("Reading line: %s\n", line);
 		//if(fgets(line, LINE_LEN, file) == NULL) break;
         //creer fractales a partir de line avec decodeLineToFractal()
         if( line[0] == '#'){
@@ -64,19 +66,19 @@ void *producteur(void *fn){
         pthread_mutex_lock(&mthread_buffer);
 		
         //section critique
-        int is_placed = 0;
+        /*int is_placed = 0;
         for(int i = 0; !is_placed; i += 1){
-        	buffer[i] = fr;
+        	buffer[nb_fractals] = fr;
         	is_placed ++;
         	nb_fractals ++;
 
         }
-        /*
+        */
         if(buffer[nb_fractals] == NULL){
         	buffer[nb_fractals] = fr;
         	nb_fractals++;
         }
-		*/
+		
         sem_post(&full);
 	    pthread_mutex_unlock(&mthread_buffer);
     }
@@ -95,42 +97,53 @@ void *producteur(void *fn){
     pthread_mutex_lock(&mthread_closing);
     nb_files_reading--;
     pthread_mutex_unlock(&mthread_closing);
+    printf("\t nb_fractals: %d\n", nb_fractals );
     return NULL;
 }
 
-void *consommateur(void *param){
-	printf("nb_files_reading: %d\n", nb_files_reading );
+void *consommateur(){
+	printf("Consommateur() \t nb_files_reading: %d nb_fractals: %d\n", nb_files_reading, nb_fractals );
 
 	struct fractal * fr = NULL;
-	while( nb_fractals >= 0 && buffer[0] != NULL){
+	while( nb_files_reading != 0 || nb_fractals >= 0 /* buffer[0] != NULL*/){
+		if(nb_fractals == 0) return NULL;
 
 		sem_wait(&full);
 		pthread_mutex_lock(&mthread_buffer);
 
-  		if (buffer[nb_fractals - 1] != NULL) {
+  		/*if (buffer[nb_fractals - 1] != NULL) {
 			nb_fractals--;
   			fr = buffer[nb_fractals];
         	buffer[nb_fractals] = NULL;
   		}else{
   			fprintf(stderr, "Error with nb_fractals: %d\n", nb_fractals);
   			break;
-  		}
-		
+  		}*/
+
+		int get = 0;
+		for(int i = 0; !get; i++){
+			if(buffer[i] != NULL) {
+				fr = buffer[i];
+				get++;
+				nb_fractals--;
+				buffer[i] = NULL;
+			}
+		}
+
 		pthread_mutex_unlock(&mthread_buffer);
 		sem_post(&empty);
 
-		printf("Before compute_value()\n");
 		double fr_average = compute_value(fr);
-		printf("Before compute_value()\n");
-		/*if( fr_average >= best_average ){
+		printf("fr_average: %lf best_average: %lf\n",fr_average, best_average );
+		if( fr_average >= best_average ){
 			//fractal_free(best_fractal);
 			best_fractal = fr;
+			best_average = fr_average;
 		}else{
 			//fractal_free(fr);
 		}
-		*/
+		
 		if(genBMP){
-			printf("print it!\n");
 			
 			char n[70] = "";
 		    char *f_name = n;
@@ -138,11 +151,10 @@ void *consommateur(void *param){
 		    strcpy(f_name, fractal_get_name(fr));
 		    strcat(f_name, ".bmp");
 
-			printf("filename:%s\n",f_name );
-			printf("Name of fractal to print: %s width: %d height: %d\n", fractal_get_name(fr),fractal_get_width(fr) , fractal_get_height(fr) );
+			//printf("Name of fractal to print: %s width: %d height: %d\n", fractal_get_name(fr),fractal_get_width(fr) , fractal_get_height(fr) );
 			int bmp = write_bitmap_sdl(fr,f_name);
 			if(bmp == 0){
-				printf(" Converted to bmp file ! \n");
+				printf(" %s created !\n", f_name);
 			}
 			else
 				printf("Error while creating %s\n", f_name);
@@ -155,7 +167,8 @@ void *consommateur(void *param){
 		}else{
 			fractal_free(fr);
 		}
-*/
+*/	
+
 		return (void *) best_fractal;
 		
 	}
@@ -177,11 +190,11 @@ double compute_value(struct fractal *f){
 		for (int y = 0; y < height; y++){
 			int val = fractal_compute_value(f, x, y);
 			fractal_set_value(f, x, y, val);
-			fractal_set_value(f, width - x, height - y, val); 	/*par symétrie*/
-			somme += 2*val; // symétrie
-			printf("%lf ", val );
+			//fractal_set_value(f, width - x, height - y, val); 	/*par symétrie*/
+			somme += val; // symétrie
+			//printf("%lf ", val );
 		}
-		printf("\n");
+		//printf("\n");
 	}
 	double moyenne = somme/(width*height);
 	f->mean_value = moyenne;

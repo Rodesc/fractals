@@ -52,9 +52,7 @@ int main(int argc, char *argv[]){
 	}
 
 	printf("Décomposition des arguments effectuee:\n	genBMP: %d\n	nbf:%d\n	nb_max_threads:%d\n 	fichier_out:%s\n",genBMP, nbf, nb_max_threads, fichier_out);
-	printf("Creating fractal... \n");
-	
-	struct fractal *f = fractal_new("Julia", 500, 250, -0.52, 0.0);
+
 
 	
 	buffer = (struct fractal **) malloc(nb_max_threads * sizeof(struct fractal *));
@@ -79,15 +77,14 @@ int main(int argc, char *argv[]){
 
 	for (int i = 0; i<nbf; i++){
 		if ( pthread_create(&(readers[i]), NULL, &producteur, (void *) fichiers_in[i]) != 0 )
-			fprintf(stderr, "Error: pthread_create readers with fichiers_in[%i]",i);
+			fprintf(stderr, "Error: pthread_create readers with fichiers_in[%i] \n",i);
 		//printf("readers (threads) Created\n");
 	}
 
 	for (int i = 0; i<nb_max_threads; i++){
-		int x = i;
-		if ( pthread_create(&computers[i], NULL, &consommateur, (void *) x ) != 0 )
-			fprintf(stderr, "Error: pthread_create computers with %i",x);
-		//printf("computers (threads) Created\n");
+		if ( pthread_create(&computers[i], NULL, &consommateur,NULL) != 0 )
+			fprintf(stderr, "Error: pthread_create computers (%i) \n", i);
+		printf("computers (threads) Created: %d\n", i);
 	}
 
 	for(int i = 0; i < nb_max_threads; i++){
@@ -98,18 +95,10 @@ int main(int argc, char *argv[]){
 		
 		if(best_fractal == NULL){
 			best_fractal = fr;
-			//best_average = computers[i];
+			
 		}
-		//else if( best_fractal->mean_value < fr->mean_value){
-			//fractal_free(best_fractal);
-			best_fractal = fr;
-		//}
-		//else
-			//fractal_free(fr);
+		best_fractal = fr;
 		printf("Joining computers[%d]\n", i );
-		//else if (best_average < computers[i]){
-		//	best_fractal = fr;
-		//}
 	}
 	write_bitmap_sdl(best_fractal,fichier_out);
 /*
@@ -125,7 +114,7 @@ int main(int argc, char *argv[]){
 	else*/
 	//compute_value(f);
 	
-		printf("END OF MAIN\n");
+		printf("END OF MAIN \n best_average: %d \n",best_average);
 	//fractal_free(f);
     return 0;
 }
