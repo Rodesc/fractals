@@ -98,7 +98,7 @@ int main(int argc, char *argv[]){
 
 		if(best_fractal == NULL){
 			best_fractal = fr;
-			//printf("best_fractal->mean_value: %lf fr->mean_value: %lf\n", best_fractal->mean_value, fr->mean_value );	
+			printf("best_fractal->mean_value: %lf fr->mean_value: %lf\n", best_fractal->mean_value, fr->mean_value );	
 		}
 		/*else if( best_fractal -> mean_value <  fr->mean_value){
 			fractal_free(best_fractal);
