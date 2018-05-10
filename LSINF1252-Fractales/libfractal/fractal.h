@@ -92,6 +92,10 @@ double fractal_get_a(const struct fractal *f);
  */
 double fractal_get_b(const struct fractal *f);
 
+
+double fractal_get_mean_value(const struct fractal *f);
+
+
 /*
  * fractal_compute_value
  *

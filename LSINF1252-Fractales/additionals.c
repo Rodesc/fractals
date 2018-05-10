@@ -132,15 +132,15 @@ void *consommateur(){
 		sem_post(&empty);
 
 		compute_value(fr);
-		/*printf("fr->mean_value: %lf best_average: %lf\n",fr->average, best_average );
-		if( fr_average >= best_average ){
+		printf("fr->mean_value: %lf best_average: %lf\n",fr->mean_value, best_average );
+		if( fr->mean_value >= best_average ){
 			//fractal_free(best_fractal);
 			best_fractal = fr;
-			best_average = fr_average;
+			best_average = fr->mean_value;
 		}else{
 			//fractal_free(fr);
 		}
-		*/
+		
 		if(genBMP){
 			
 			char n[70] = "";

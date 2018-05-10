@@ -87,6 +87,11 @@ int main(int argc, char *argv[]){
 		//printf("computers (threads) Created: %d\n", i);
 	}
 
+
+	
+
+
+	struct fractal * best_avg_fractal=fractal_new("Juliette", 100, 100, 0.3, 0.3);
 	for(int i = 0; i < nb_max_threads; i++){
 		struct fractal * fr;
 
@@ -96,20 +101,15 @@ int main(int argc, char *argv[]){
 		printf("Joining computers[%d]\n", i );
 
 
-		if(best_fractal == NULL){
-			best_fractal = fr;
-			printf("best_fractal->mean_value: %lf fr->mean_value: %lf\n", best_fractal->mean_value, fr->mean_value );	
-		}
-		/*else if( best_fractal -> mean_value <  fr->mean_value){
-			fractal_free(best_fractal);
-			best_fractal = fr;
+		/*if(best_avg_fractal == NULL || best_avg_fractal->mean_value <  fr->mean_value){
+			fractal_free(best_avg_fractal);
+			best_avg_fractal = (struct fractal *) fr;
 		}
 		else{
 			fractal_free(fr);
 		}*/
 
 	}
-
 
 	//write_bitmap_sdl(best_fractal,fichier_out);
 /*

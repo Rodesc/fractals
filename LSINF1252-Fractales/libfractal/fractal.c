@@ -15,6 +15,7 @@ struct fractal *fractal_new(const char *name, int width, int height, double a, d
 	f->width = width;
 	f->a = a;
 	f->b = b;
+    f->mean_value = 0;
 	return f;
 }
 
@@ -67,4 +68,10 @@ double fractal_get_b(const struct fractal *f)
 {
     /* TODO */
     return f->b;
+}
+
+double fractal_get_mean_value(const struct fractal *f)
+{
+    /* TODO */
+    return f->mean_value;
 }
