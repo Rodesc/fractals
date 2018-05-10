@@ -84,7 +84,7 @@ int main(int argc, char *argv[]){
 	for (int i = 0; i<nb_max_threads; i++){
 		if ( pthread_create(&computers[i], NULL, &consommateur,NULL) != 0 )
 			fprintf(stderr, "Error: pthread_create computers (%i) \n", i);
-		printf("computers (threads) Created: %d\n", i);
+		//printf("computers (threads) Created: %d\n", i);
 	}
 
 	for(int i = 0; i < nb_max_threads; i++){
@@ -93,14 +93,25 @@ int main(int argc, char *argv[]){
 		if(pthread_join(computers[i], (void ** ) &fr) != 0)
 			fprintf(stderr, "pthread_join error: computers[%d]\n", i );
 		
+		printf("Joining computers[%d]\n", i );
+
+
 		if(best_fractal == NULL){
 			best_fractal = fr;
-			
+			//printf("best_fractal->mean_value: %lf fr->mean_value: %lf\n", best_fractal->mean_value, fr->mean_value );	
 		}
-		best_fractal = fr;
-		printf("Joining computers[%d]\n", i );
+		/*else if( best_fractal -> mean_value <  fr->mean_value){
+			fractal_free(best_fractal);
+			best_fractal = fr;
+		}
+		else{
+			fractal_free(fr);
+		}*/
+
 	}
-	write_bitmap_sdl(best_fractal,fichier_out);
+
+
+	//write_bitmap_sdl(best_fractal,fichier_out);
 /*
 	for (int i = 0; i<nbf; i++)
 		printf("%s\n",fractal_get_name( buffer[i]) );

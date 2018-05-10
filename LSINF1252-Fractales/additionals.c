@@ -18,7 +18,6 @@ int genBMP;
 
 int std = 0; //False
 int nb_fractals = 0;
-double best_average = 0;
 struct fractal * best_fractal = NULL;
 
 void *producteur(void *fn){
@@ -26,7 +25,6 @@ void *producteur(void *fn){
 	char * file_name = (char *) fn;
 	FILE * file = NULL;
 	
-	//ssize_t read;
 	struct fractal * fr;
 
 	if (strcmp(file_name, "-") == 0) {
@@ -84,9 +82,9 @@ void *producteur(void *fn){
     }
 
     //code de vérification
-    for(int i = 0; i < nb_fractals; i++){
-    	printf("\t buffer[%d] -> %s\n", i, fractal_get_name(buffer[i]) );
-    }
+    //for(int i = 0; i < nb_fractals; i++){
+    //	printf("\t buffer[%d] -> %s\n", i, fractal_get_name(buffer[i]) );
+    //}
 
     printf("Closing file \"%s\"\n", file_name );
     if(std == 0 && fclose(file) != 0){
@@ -105,22 +103,22 @@ void *consommateur(){
 	printf("Consommateur() \t nb_files_reading: %d nb_fractals: %d\n", nb_files_reading, nb_fractals );
 
 	struct fractal * fr = NULL;
-	while( nb_files_reading != 0 || nb_fractals >= 0 /* buffer[0] != NULL*/){
+	while(nb_fractals != 0 /*|| nb_fractals >= 0 /* buffer[0] != NULL*/){
 		if(nb_fractals == 0) return NULL;
 
 		sem_wait(&full);
 		pthread_mutex_lock(&mthread_buffer);
 
-  		/*if (buffer[nb_fractals - 1] != NULL) {
+  		if (buffer[nb_fractals - 1] != NULL) {
 			nb_fractals--;
   			fr = buffer[nb_fractals];
         	buffer[nb_fractals] = NULL;
   		}else{
   			fprintf(stderr, "Error with nb_fractals: %d\n", nb_fractals);
   			break;
-  		}*/
+  		}
 
-		int get = 0;
+		/*int get = 0;
 		for(int i = 0; !get; i++){
 			if(buffer[i] != NULL) {
 				fr = buffer[i];
@@ -128,13 +126,13 @@ void *consommateur(){
 				nb_fractals--;
 				buffer[i] = NULL;
 			}
-		}
+		}*/
 
 		pthread_mutex_unlock(&mthread_buffer);
 		sem_post(&empty);
 
-		double fr_average = compute_value(fr);
-		printf("fr_average: %lf best_average: %lf\n",fr_average, best_average );
+		compute_value(fr);
+		/*printf("fr->mean_value: %lf best_average: %lf\n",fr->average, best_average );
 		if( fr_average >= best_average ){
 			//fractal_free(best_fractal);
 			best_fractal = fr;
@@ -142,7 +140,7 @@ void *consommateur(){
 		}else{
 			//fractal_free(fr);
 		}
-		
+		*/
 		if(genBMP){
 			
 			char n[70] = "";
