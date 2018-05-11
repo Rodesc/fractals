@@ -1,0 +1,264 @@
+[33mc6ad6dd [34m37 seconds ago [32mRodesc [31m (HEAD -> master, origin/master, origin/HEAD) [mDerniers embelissements de code
+ LSINF1252-Fractales/Makefile                |  16 +++--
+ LSINF1252-Fractales/additionals.c           | 107 ++++++++--------------------
+ LSINF1252-Fractales/additionals.o           | Bin 16312 -> 0 bytes
+ LSINF1252-Fractales/fractal_test1           | Bin 30624 -> 0 bytes
+ LSINF1252-Fractales/libfractal/fractal.c    |  16 ++---
+ LSINF1252-Fractales/libfractal/fractal.h    |   2 -
+ LSINF1252-Fractales/libfractal/fractal.o    | Bin 6560 -> 0 bytes
+ LSINF1252-Fractales/libfractal/libfractal.a | Bin 16354 -> 0 bytes
+ LSINF1252-Fractales/libfractal/tools.o      | Bin 9376 -> 0 bytes
+ LSINF1252-Fractales/main.c                  |  67 ++++++-----------
+ LSINF1252-Fractales/main.o                  | Bin 12696 -> 0 bytes
+ LSINF1252-Fractales/tests/Makefile          |   6 +-
+ LSINF1252-Fractales/tests/test1             | Bin 17584 -> 0 bytes
+ LSINF1252-Fractales/tests/test1.c           |  22 +++++-
+ LSINF1252-Fractales/tests/test1.o           | Bin 3960 -> 0 bytes
+ 15 files changed, 93 insertions(+), 143 deletions(-)
+
+[33ma50cbb4 [34m22 minutes ago [32mRodesc [31m [mMerge branch 'master' of https://github.com/Rodesc/fractals
+[33m1f41d33 [34m56 minutes ago [32mPierre [31m [mCorrection MakeFile tests
+ LSINF1252-Fractales/tests/Makefile |   2 +-
+ LSINF1252-Fractales/tests/test1    | Bin 0 -> 17584 bytes
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+
+[33mcde6d80 [34m 2 hours ago [32mPierre [31m [mAjout de tests
+ LSINF1252-Fractales/tests/Makefile |   8 ++++++
+ LSINF1252-Fractales/tests/test1.c  |  57 +++++++++++++++++++++++++++++++++++++
+ LSINF1252-Fractales/tests/test1.o  | Bin 0 -> 3960 bytes
+ 3 files changed, 65 insertions(+)
+
+[33m77642a2 [34m22 hours ago [32mRodesc [31m [mFiguring out the problems
+ LSINF1252-Fractales/additionals.c        |   8 ++++----
+ LSINF1252-Fractales/additionals.o        | Bin 15912 -> 16312 bytes
+ LSINF1252-Fractales/fichierout.bmp       | Bin 70 -> 0 bytes
+ LSINF1252-Fractales/fract1.bmp           | Bin 1920054 -> 0 bytes
+ LSINF1252-Fractales/fract2.bmp           | Bin 6220854 -> 0 bytes
+ LSINF1252-Fractales/fract3.bmp           | Bin 70 -> 0 bytes
+ LSINF1252-Fractales/fractal_test1        | Bin 30552 -> 30624 bytes
+ LSINF1252-Fractales/libfractal/fractal.c |   7 +++++++
+ LSINF1252-Fractales/libfractal/fractal.h |   4 ++++
+ LSINF1252-Fractales/main.c               |  16 ++++++++--------
+ LSINF1252-Fractales/main.o               | Bin 12664 -> 12696 bytes
+ 11 files changed, 23 insertions(+), 12 deletions(-)
+
+[33m7563a68 [34m24 hours ago [32mRodesc [31m [mbest average picking algorithm modified
+ LSINF1252-Fractales/fractal_test1 | Bin 30552 -> 30552 bytes
+ LSINF1252-Fractales/main.c        |   2 +-
+ LSINF1252-Fractales/main.o        | Bin 12472 -> 12664 bytes
+ 3 files changed, 1 insertion(+), 1 deletion(-)
+
+[33m2c96cb9 [34m24 hours ago [32mRodesc [31m [mbest average picking algorithm modified
+ LSINF1252-Fractales/additionals.c  |  24 +++++++++++-------------
+ LSINF1252-Fractales/additionals.o  | Bin 16656 -> 15912 bytes
+ LSINF1252-Fractales/fichierout.bmp | Bin 1920054 -> 70 bytes
+ LSINF1252-Fractales/fract2.bmp     | Bin 6220854 -> 6220854 bytes
+ LSINF1252-Fractales/fractal_test1  | Bin 30768 -> 30552 bytes
+ LSINF1252-Fractales/main.c         |  21 ++++++++++++++++-----
+ LSINF1252-Fractales/main.o         | Bin 12760 -> 12472 bytes
+ LSINF1252-Fractales/test.bmp       | Bin 1938522 -> 0 bytes
+ 8 files changed, 27 insertions(+), 18 deletions(-)
+
+[33m20b7572 [34m25 hours ago [32mRodesc [31m [mErreur de semgentation a plusieurs reprises debugage en cours
+ LSINF1252-Fractales/additionals.c    |  71 +++++++++++++++++++++--------------
+ LSINF1252-Fractales/additionals.h    |   2 +-
+ LSINF1252-Fractales/additionals.o    | Bin 16992 -> 16656 bytes
+ LSINF1252-Fractales/fichierout.bmp   | Bin 0 -> 1920054 bytes
+ LSINF1252-Fractales/fract1.bmp       | Bin 0 -> 1920054 bytes
+ LSINF1252-Fractales/fract2.bmp       | Bin 0 -> 6220854 bytes
+ LSINF1252-Fractales/fract3.bmp       | Bin 0 -> 70 bytes
+ LSINF1252-Fractales/fractal_test1    | Bin 30928 -> 30768 bytes
+ LSINF1252-Fractales/img/JuliaXL.bmp  | Bin 0 -> 6220854 bytes
+ LSINF1252-Fractales/img/JuliaXXL.bmp | Bin 0 -> 18000054 bytes
+ LSINF1252-Fractales/img/julia2.bmp   | Bin 0 -> 512174 bytes
+ LSINF1252-Fractales/img/julia3.bmp   | Bin 0 -> 750054 bytes
+ LSINF1252-Fractales/img/julia4.bmp   | Bin 0 -> 375054 bytes
+ LSINF1252-Fractales/main.c           |  27 ++++---------
+ LSINF1252-Fractales/main.o           | Bin 12904 -> 12760 bytes
+ LSINF1252-Fractales/test.bmp         | Bin 0 -> 1938522 bytes
+ 16 files changed, 51 insertions(+), 49 deletions(-)
+
+[33m6100bb0 [34m28 hours ago [32mRodesc [31m [mfonction producteur censée être totalement fonctionnelle
+ LSINF1252-Fractales/JuliaXL.bmp           | Bin 6220854 -> 0 bytes
+ LSINF1252-Fractales/JuliaXXL.bmp          | Bin 18000054 -> 0 bytes
+ LSINF1252-Fractales/additionals.c         | 105 +++++++++++++++++++-----------
+ LSINF1252-Fractales/additionals.o         | Bin 15880 -> 16992 bytes
+ LSINF1252-Fractales/fractal_test1         | Bin 30472 -> 30928 bytes
+ LSINF1252-Fractales/input_files/file2.txt |   5 ++
+ LSINF1252-Fractales/julia2.bmp            | Bin 512174 -> 0 bytes
+ LSINF1252-Fractales/julia3.bmp            | Bin 750054 -> 0 bytes
+ LSINF1252-Fractales/julia4.bmp            | Bin 375054 -> 0 bytes
+ LSINF1252-Fractales/libfractal/fractal.c  |   2 +-
+ LSINF1252-Fractales/libfractal/fractal.h  |   3 +-
+ LSINF1252-Fractales/main.c                |  21 ++++--
+ LSINF1252-Fractales/main.h                |   1 +
+ LSINF1252-Fractales/main.o                | Bin 12168 -> 12904 bytes
+ 14 files changed, 93 insertions(+), 44 deletions(-)
+
+[33md19aa72 [34m  2 days ago [32mRodesc [31m [mAvancement sur consommateur et modifications de producteurs. Segmentation fault car les fractals s'enregistrent mal dans le buffer
+ LSINF1252-Fractales/additionals.c |  73 +++++++++++++++++++++++++++++++++-----
+ LSINF1252-Fractales/additionals.h |   5 +++
+ LSINF1252-Fractales/additionals.o | Bin 13680 -> 15880 bytes
+ LSINF1252-Fractales/fractal_test1 | Bin 30192 -> 30472 bytes
+ LSINF1252-Fractales/main.c        |  33 ++++++++++++++---
+ LSINF1252-Fractales/main.h        |   2 ++
+ LSINF1252-Fractales/main.o        | Bin 12360 -> 12168 bytes
+ 7 files changed, 99 insertions(+), 14 deletions(-)
+
+[33mf8381e3 [34m  2 days ago [32mRodesc [31m [mproducteur() fonctionne comme demandé
+ LSINF1252-Fractales/additionals.c         |  42 +++++++++++++++++++++---------
+ LSINF1252-Fractales/additionals.h         |   1 +
+ LSINF1252-Fractales/additionals.o         | Bin 12688 -> 13680 bytes
+ LSINF1252-Fractales/fractal_test1         | Bin 30000 -> 30192 bytes
+ LSINF1252-Fractales/input_files/file1.txt |   5 ++++
+ LSINF1252-Fractales/libfractal/fractal.c  |   3 +--
+ LSINF1252-Fractales/main.c                |   8 +++---
+ LSINF1252-Fractales/main.h                |  12 +++++++++
+ LSINF1252-Fractales/main.o                | Bin 12352 -> 12360 bytes
+ 9 files changed, 53 insertions(+), 18 deletions(-)
+
+[33m802b1db [34m  3 days ago [32mRodesc [31m [mfonction producteur finie?
+ LSINF1252-Fractales/Makefile             |   6 +--
+ LSINF1252-Fractales/additionals.c        |  77 ++++++++++++++++++++++++++++---
+ LSINF1252-Fractales/additionals.h        |   8 ++++
+ LSINF1252-Fractales/additionals.o        | Bin 7208 -> 12688 bytes
+ LSINF1252-Fractales/fractal_test1        | Bin 28672 -> 30000 bytes
+ LSINF1252-Fractales/libfractal/fractal.c |   5 +-
+ LSINF1252-Fractales/main.c               |  58 ++++++-----------------
+ LSINF1252-Fractales/main.o               | Bin 14024 -> 12352 bytes
+ 8 files changed, 98 insertions(+), 56 deletions(-)
+
+[33m8c8a68c [34m  4 days ago [32mRodesc [31m [madditionals.c: ecriture fonction producteur()
+ LSINF1252-Fractales/Makefile          |   2 +-
+ LSINF1252-Fractales/additionals.c     |  43 ++++++++++++++++++++++++++++++++++
+ LSINF1252-Fractales/additionals.h     |  20 ++++++++++++++++
+ LSINF1252-Fractales/additionals.h.gch | Bin 0 -> 1618384 bytes
+ LSINF1252-Fractales/additionals.o     | Bin 0 -> 7208 bytes
+ LSINF1252-Fractales/fractal_test1     | Bin 27384 -> 28672 bytes
+ LSINF1252-Fractales/julia4.bmp        | Bin 375054 -> 375054 bytes
+ LSINF1252-Fractales/main.c            |  15 +++++++-----
+ LSINF1252-Fractales/main.o            | Bin 13720 -> 14024 bytes
+ 9 files changed, 73 insertions(+), 7 deletions(-)
+
+[33medbefb4 [34m  5 days ago [32mRodesc [31m [mAjout de additionals >> changement de Makefile + Ajout de code pr multithreading
+ LSINF1252-Fractales/JuliaXL.bmp              | Bin 0 -> 6220854 bytes
+ LSINF1252-Fractales/JuliaXXL.bmp             | Bin 0 -> 18000054 bytes
+ LSINF1252-Fractales/Makefile                 |  26 ++++--------
+ LSINF1252-Fractales/fractal_test1            | Bin 0 -> 27384 bytes
+ LSINF1252-Fractales/gitlog.stat              |  36 ----------------
+ LSINF1252-Fractales/julia2.bmp               | Bin 0 -> 512174 bytes
+ LSINF1252-Fractales/julia3.bmp               | Bin 0 -> 750054 bytes
+ LSINF1252-Fractales/julia4.bmp               | Bin 0 -> 375054 bytes
+ LSINF1252-Fractales/libfractal/fractal.h.gch | Bin 0 -> 1569200 bytes
+ LSINF1252-Fractales/libfractal/fractal.o     | Bin 0 -> 6560 bytes
+ LSINF1252-Fractales/libfractal/libfractal.a  | Bin 0 -> 16354 bytes
+ LSINF1252-Fractales/libfractal/tools.o       | Bin 0 -> 9376 bytes
+ LSINF1252-Fractales/main.c                   |  61 +++++++++++++++++++--------
+ LSINF1252-Fractales/main.o                   | Bin 0 -> 13720 bytes
+ 14 files changed, 52 insertions(+), 71 deletions(-)
+
+[33m6ad7f2f [34m  8 days ago [32mRodesc [31m [mCalcul de moyenne + optimisation calcul
+ LSINF1252-Fractales/libfractal/fractal.c |  7 ++--
+ LSINF1252-Fractales/main.c               | 65 ++++++++++++++++++--------------
+ 2 files changed, 41 insertions(+), 31 deletions(-)
+
+[33m57d276e [34m 2 weeks ago [32mRodesc [31m [mDecomposition des arguments fonctionnel (tests approfondis a effectuer)
+ LSINF1252-Fractales/main.c | 29 +++++++++++++++++++++--------
+ 1 file changed, 21 insertions(+), 8 deletions(-)
+
+[33m56b718f [34m 2 weeks ago [32mRodesc [31m [mAffiche n'importe quelle taille
+ LSINF1252-Fractales/Makefile |  4 ++--
+ LSINF1252-Fractales/main.c   | 47 +++++++++++++++++++++++++++++++++-----------
+ 2 files changed, 37 insertions(+), 14 deletions(-)
+
+[33mb3f5f14 [34m 3 weeks ago [32mRodesc [31m [mProbleme de sengmentation pour image > 413*413 px pas de changements particuliers
+ LSINF1252-Fractales/libfractal/fractal.c |  2 +-
+ LSINF1252-Fractales/main.c               | 23 ++++++++++++++++++-----
+ 2 files changed, 19 insertions(+), 6 deletions(-)
+
+[33m0526938 [34m 3 weeks ago [32mRodesc [31m [mVersion 1
+ LSINF1252-Fractales/main.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+[33meb46495 [34m 3 weeks ago [32mRodesc [31m [mTest
+ LSINF1252-Fractales/main.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+[33mf415b86 [34m 3 weeks ago [32mRodesc [31m [mModification MakeFile (inclusion SDL)(resolution des problèmes de referencement) + premiers tests de creation et calcul de fractales de Julia
+ LSINF1252-Fractales/Makefile             | 22 +++++++++++--------
+ LSINF1252-Fractales/libfractal/fractal.h |  2 +-
+ LSINF1252-Fractales/main.c               | 36 +++++++++++++++++++-------------
+ 3 files changed, 36 insertions(+), 24 deletions(-)
+
+[33md11e325 [34m 3 weeks ago [32mRodesc [31m [mMerge branch 'master' of https://github.com/Rodesc/fractals
+[33m06fe9e7 [34m 3 weeks ago [32mRodesc [31m [mModif MakeFile + main: CompilationOK
+ LSINF1252-Fractales/Makefile |  6 +++++-
+ LSINF1252-Fractales/main.c   | 21 ++++++++++++---------
+ 2 files changed, 17 insertions(+), 10 deletions(-)
+
+[33m4a05428 [34m 3 weeks ago [32mPierre [31m [m2eme_commit
+ README.md | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+[33m4915c55 [34m 3 weeks ago [32mPierre [31m [m1er_commit
+ README.md | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+[33me5032c9 [34m 3 weeks ago [32mRodesc [31m [mModification du code + makefile (erreur: recipe for target 'fractal_test1' failed -- a corriger)
+ LSINF1252-Fractales/Makefile             |  2 +-
+ LSINF1252-Fractales/libfractal/fractal.c |  3 ++-
+ LSINF1252-Fractales/main.c               | 14 +++++++-------
+ 3 files changed, 10 insertions(+), 9 deletions(-)
+
+[33m930c2e9 [34m 3 weeks ago [32mRodesc [31m [mRéforme du MakeFile + resolution du probleme de tableau dynamique à 2 dimensions + changement de 2-3 getters-setters
+ LSINF1252-Fractales/.gitlog.stat.swp     | Bin 0 -> 1024 bytes
+ LSINF1252-Fractales/Makefile             |  21 ++++++++++++++++-----
+ LSINF1252-Fractales/libfractal/fractal.c |  31 ++++++++++++++++++-------------
+ LSINF1252-Fractales/libfractal/fractal.h |   4 ++--
+ README.md                                |   2 ++
+ 5 files changed, 38 insertions(+), 20 deletions(-)
+
+[33m26fd035 [34m 3 weeks ago [32mRodesc [31m [mModification du MakeFile principal mais erreur de compiloation à chaque fois
+ LSINF1252-Fractales/Makefile             | 11 ++++++++++
+ LSINF1252-Fractales/gitlog.stat          | 36 ++++++++++++++++++++++++++++++++
+ LSINF1252-Fractales/libfractal/fractal.c |  2 +-
+ LSINF1252-Fractales/libfractal/fractal.h |  8 +++----
+ LSINF1252-Fractales/main.c               | 21 ++++++++++++++++---
+ 5 files changed, 70 insertions(+), 8 deletions(-)
+
+[33m320ed4c [34m 4 weeks ago [32mRodesc [31m [mAjout fichier architecture
+ Fractales-architecture.pdf | Bin 0 -> 103730 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+[33m90702b0 [34m 4 weeks ago [32mRodesc [31m [mAjout Enonce.pdf
+ enonce.pdf | Bin 0 -> 245527 bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+[33m0ee0669 [34m 4 weeks ago [32mRodesc [31m [mImplementation getters setters et fractal_free
+ LSINF1252-Fractales/libfractal/fractal.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+[33m4ff0c58 [34m 4 weeks ago [32mRodesc [31m [mAjout struct fractal
+ LSINF1252-Fractales/libfractal/fractal.h | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+[33m6b78556 [34m 4 weeks ago [32mRodesc [31m [mAjout gitlog.Stat
+ LSINF1252-Fractales/gitlog.stat | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+[33m37235aa [34m 4 weeks ago [32mRodesc [31m [mInitialisation de la fractale
+ LSINF1252-Fractales/libfractal/fractal.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+[33meeff093 [34m 4 weeks ago [32mRodesc [31m [mInitial upload
+ LSINF1252-Fractales/Makefile             |   1 +
+ LSINF1252-Fractales/libfractal/Makefile  |  15 +++++
+ LSINF1252-Fractales/libfractal/fractal.c |  54 +++++++++++++++
+ LSINF1252-Fractales/libfractal/fractal.h | 112 +++++++++++++++++++++++++++++++
+ LSINF1252-Fractales/libfractal/tools.c   | 103 ++++++++++++++++++++++++++++
+ LSINF1252-Fractales/main.c               |  11 +++
+ 6 files changed, 296 insertions(+)
+
+[33m14d67c1 [34m 4 weeks ago [32mRodesc [31m [mInitial commit
+ README.md | 2 ++
+ 1 file changed, 2 insertions(+)
