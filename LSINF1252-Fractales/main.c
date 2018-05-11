@@ -14,7 +14,7 @@ pthread_mutex_t mthread_buffer;
 pthread_mutex_t mthread_closing;
 sem_t empty;
 sem_t full;
-int genBMP = 0;
+int genBMP = 0; //indique s'il faut générer des images BMP pour toutes les fractales
 
 double best_average;
 struct fractal * best;
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]){
 	/*Décomposition des arguments*/
 	int nbf = 0;
 	for (int i = 1; i < argc-1; i++){
-		if (strcmp(argv[i], "-d") == 0)
+		if (strcmp(argv[i], "-d") == 0) 		//avec l'argument -d, il faut générer des images BMP pour toutes les fractales
 			genBMP = 1;
 		else if (strcmp(argv[i], "--maxthreads") == 0){
 			i++;
@@ -48,14 +48,17 @@ int main(int argc, char *argv[]){
 
 	nb_files_reading = nbf;
 	
+	// initialisation du buffer
 	buffer = (struct fractal **) malloc(nb_max_threads * sizeof(struct fractal *));
 	if (buffer == NULL)
 		fprintf(stderr, "malloc error: buffer\n");
 
+	//création des threads producteurs 
 	pthread_t *readers = (pthread_t *) malloc(nbf * sizeof(pthread_t));
 	if(readers == NULL)
 		fprintf(stderr, "Error: assigning readers (threads) with malloc\n");
 
+	//création de threads consommateurs
 	pthread_t *computers = (pthread_t *) malloc(nb_max_threads * sizeof(pthread_t));
 	if(computers == NULL)
 		fprintf(stderr, "Error: assigning computers (threads) with malloc\n");
@@ -77,6 +80,7 @@ int main(int argc, char *argv[]){
 
 	best = NULL;
 	
+	//on attend que tous les threads aient terminé
 	for(int i = 0; i < nb_max_threads; i++){
 		struct fractal * fr = fractal_new("", 0, 0, 0, 0);
 
@@ -94,7 +98,7 @@ int main(int argc, char *argv[]){
 
 	}
 
-	
+	/* Création d'une image BMP pour la 'meilleure' fractale */
 	int bmp = write_bitmap_sdl(best, fichier_out);
 	if(bmp == 0){
 		printf("File: %s created\n", fichier_out);
