@@ -20,6 +20,25 @@ void test_getters(void) {
 
 }
 
+void test_set_and_get_value(void) {
+	struct fractal *fract = fractal_new("myfractal", 20, 20, 0.2, 0.5);
+
+	for(int x = 0; x < 20; x++){
+		for(int y = 0; y< 20; y++){
+			fractal_set_value(fract, x, y, x+y);
+		}
+	}
+
+	for(int x = 0; x < 20; x++){
+		for(int y = 0; y< 20; y++){
+			CU_ASSERT_EQUAL(fractal_get_value(fract, x, y), x+y);
+		}
+	}
+
+}
+		
+
+
 int main()
 {
 	CU_pSuite pSuite = NULL;
@@ -39,7 +58,8 @@ int main()
    	}
 
 
-	if(NULL == CU_add_test(pSuite, "Test_Getters", test_getters))
+	if(NULL == CU_add_test(pSuite, "Test_Getters", test_getters) ||
+	   NULL == CU_add_test(pSuite, "Test_GetSetValue", test_set_and_get_value))
 	{
 		CU_cleanup_registry();
 		return CU_get_error();

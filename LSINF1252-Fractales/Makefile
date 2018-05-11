@@ -1,10 +1,10 @@
-all: main.o additionals.o fractal_test1 lib
+all: main.o additionals.o main lib
 	@(echo ''Compilation all ... '')
 	@(echo ''OK'')
 
-fractal_test1: main.o additionals.o lib 
-	@(echo ''Compilation fractal_test1 ...'')
-	@(gcc -g -Wall -o fractal_test1 main.o additionals.o libfractal/fractal.o libfractal/tools.o -lSDL -lpthread)
+main: main.o additionals.o lib 
+	@(echo ''Compilation main ...'')
+	@(gcc -g -Wall -o main main.o additionals.o libfractal/fractal.o libfractal/tools.o -lSDL -lpthread)
 	@(echo ''OK'')
 
 main.o: main.c 
@@ -17,7 +17,13 @@ additionals.o: additionals.c main.c
 	gcc -Wall -g -c additionals.c main.c -lpthread -lSDL
 	@(echo ''OK'')
 
+clean:
+	@rm -rf *.o libfractal/*.o libfractal/*.a tests/*.o *.bmp main tests/test1
+	@echo "Cleaned"
 lib:
 	@(echo ''Compilation lib ...'')
 	@(cd libfractal && make)
 	@(echo ''OK'')
+tests:
+	@echo "Testing"
+	@(cd tests && make)
